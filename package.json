@@ -1,0 +1,20 @@
+{
+  "name": "Pokedex101",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/pokedex-101/backend-pokedex.git"
+  },
+  "keywords": [],
+  "author": "Jose Luis Chavez <josephsiul15@gmai.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/pokedex-101/backend-pokedex/issues"
+  },
+  "homepage": "https://gitlab.com/pokedex-101/backend-pokedex#readme"
+}
