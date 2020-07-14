@@ -1,5 +1,5 @@
 const data = {
-  Number: 1,
+  Number: faker.random(),
   image_url: 'url',
   icon_url: 'url',
   name: 'Name',

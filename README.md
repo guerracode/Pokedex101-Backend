@@ -41,3 +41,28 @@ Variables:
     "numberOfPages": 5
   }
 ```
+
+Cards Schema:
+
+```GraphQL
+type Card {
+    Number: ID!
+    image_url: String!
+    icon_url: String!
+    name: String!
+    type: String!
+    abilities: String!
+    experience_growth: String!
+    generation: String!
+    attack: Int!
+    special_attack: Int!
+    defense: Int!
+    special_defense: Int!
+    speed: Int!
+    weight_kg: Int!
+    height_m: Int!
+    percentage_male: Int!
+    percentage_female: Int!
+    hp: Int!
+}
+```
