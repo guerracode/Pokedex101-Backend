@@ -1,3 +1,33 @@
 type Card {
-  name: String!
+  _id: ID!
+  pokemon_number: Int!
+  icon_url: String
+  english_name: String
+  type: [String!]
+  abilities: [String!]
+  experience: String
+  generation: String
+  attack: String
+  special_attack: String
+  defense: String
+  special_defense: String
+  speed: String
+  hp: String
+  image_url: String
+  weight_kg: String
+  height_m: String
+  percentage_male: String
+  percentage_female: String
+}
+
+type Query {
+  "Get gards data (page: 1 - ...) (numberOfPages: anyNumber) "
+  getCards(page: Int!, numberOfPages: Int): [Card]
+  "Search cards"
+  searchCards(
+    type: String,
+    experience: String,
+    attack: String,
+    name: String,
+  ): [Card]
 }
