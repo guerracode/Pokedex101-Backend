@@ -8,7 +8,7 @@ const resolvers = require('./lib/graphql/resolvers');
 
 const app = express();
 const port = config.port;
-// const isDev = config.node_dev;
+const isDev = config.node_dev;
 
 const typeDefs = readFileSync(
   join(__dirname, 'lib/graphql', 'schema.graphql'),
@@ -22,11 +22,12 @@ app.use(
   graphqlHTTP({
     schema: schema,
     rootValue: resolvers,
-    graphiql: true,
-
+    graphiql: isDev,
   })
 );
 
-app.listen(port, () => {
-  console.log(`Server is listening at http://localhost:${port}/api`);
+const server = app.listen(port, () => {
+  console.log(
+    `Server is listening at http://localhost:${server.address().port}/api`
+  );
 });
