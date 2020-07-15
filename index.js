@@ -26,8 +26,6 @@ app.use(
   })
 );
 
-const server = app.listen(port, () => {
-  console.log(
-    `Server is listening at http://localhost:${server.address().port}/api`
-  );
+app.listen(port, () => {
+  console.log(`Server is listening at http://localhost:${port}/api`);
 });
