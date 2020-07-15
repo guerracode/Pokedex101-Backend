@@ -2,7 +2,7 @@
 
 ## **GraphQL API**
 
-#### API Endpoint: https://heroku.com/api
+#### API Endpoint: https://pokedex-101.herokuapp.com/api
 
 ---
 
