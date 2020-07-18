@@ -13,13 +13,14 @@ https://pokedex-101.herokuapp.com/api
 # Get Cards 👇🏼
 
 - Get Cards by page ranges:
-    - **$page:** It’s the page number you want to get (1, 2, 3, 4).
-    - **$nuberOfPages:** It’s the number of pages that you want to get (10, 20, 25, etc).
+
+  - **\$page:** It’s the page number you want to get (1, 2, 3, 4).
+  - **\$nuberOfPages:** It’s the number of pages that you want to get (10, 20, 25, etc).
 
 - Fields:
 
 ```graphql
-getCards(page: Int, numberOfPages: Int): [Card]Ï
+getCards(page: Int, numberOfPages: Int): [Card]
 ```
 
 - Schema **Card:**
@@ -45,45 +46,45 @@ type Card {
   height_m: String
   percentage_male: String
   percentage_female: String
-	group_by_force: Int
+  group_by_force: Int
 }
 ```
 
 - Example **Query**:
 
 ```graphql
-  query GetCards ($page: Int!, $numberOfPages: Int) {
-    getCards(page: $page, numberOfPages: $numberOfPages){
-        _id
-      pokemon_number
-      icon_url
-      english_name
-      type
-      abilities
-      experience
-      generation
-      attack
-      special_attack
-      defense
-      special_defense
-      speed
-      hp
-      image_url
-      weight_kg
-      height_m
-      percentage_male
-      percentage_female
-			 group_by_force
-    }
+query GetCards($page: Int!, $numberOfPages: Int) {
+  getCards(page: $page, numberOfPages: $numberOfPages) {
+    _id
+    pokemon_number
+    icon_url
+    english_name
+    type
+    abilities
+    experience
+    generation
+    attack
+    special_attack
+    defense
+    special_defense
+    speed
+    hp
+    image_url
+    weight_kg
+    height_m
+    percentage_male
+    percentage_female
+    group_by_force
   }
+}
 ```
 
 - Example **Variables**:
 
 ```graphql
 {
-	"page": 1,    
-	"numberOfPages": 20 
+	"page": 1,
+	"numberOfPages": 20
 }
 ```
 
@@ -190,10 +191,10 @@ type Card {
 # Search Cards 👇🏼
 
 - Search Cards by:
-    - type
-    - experience
-    - attack
-    - name
+  - type
+  - experience
+  - attack
+  - name
 - Just send what you want to search for in the query parameters, you can put any parameter you want.
 - You can control the page and numberOfPages like in **getCards()**.
 
@@ -216,26 +217,26 @@ searchCards(
 ```graphql
 {
   searchCards(type: "fire", page: 1, numberOfPages: 3) {
-      _id
-      pokemon_number
-      icon_url
-      english_name
-      type
-      abilities
-      experience
-      generation
-      attack
-      special_attack
-      defense
-      special_defense
-      speed
-      hp
-      image_url
-      weight_kg
-      height_m
-      percentage_male
-      percentage_female
-			 group_by_force
+    _id
+    pokemon_number
+    icon_url
+    english_name
+    type
+    abilities
+    experience
+    generation
+    attack
+    special_attack
+    defense
+    special_defense
+    speed
+    hp
+    image_url
+    weight_kg
+    height_m
+    percentage_male
+    percentage_female
+    group_by_force
   }
 }
 ```
@@ -243,9 +244,9 @@ searchCards(
 ### Attack and Experience searching:
 
 - Attack min and max values allowed:
-    - **Min**: 5, **Max**: 185
+  - **Min**: 5, **Max**: 185
 - Experience min and max values allowed:
-    - **Min**: 600000, **Max**: 1640000
+  - **Min**: 600000, **Max**: 1640000
 
 Example **Query**:
 
@@ -253,12 +254,12 @@ Example **Query**:
 # In the attack and experience array firs is the Min and then Max number.
 {
   searchCards(attack: [54, 55], experience: [1250000, 1260000]) {
-      pokemon_number
-      english_name
-      type
-      attack
-      defense
-    	experience
+    pokemon_number
+    english_name
+    type
+    attack
+    defense
+    experience
   }
 }
 ```
@@ -312,12 +313,13 @@ Example **Query**:
 # Get by Force 👇🏼
 
 - Filter cards by Force:
-    - 2: More Powerful Pokemons
-    - 1: Standard Pokemons
-    - 0: Weak Pokemons
+
+  - 2: More Powerful Pokemons
+  - 1: Standard Pokemons
+  - 0: Weak Pokemons
 
 - Fields:
-    - **force** number is required.
+  - **force** number is required.
 
 ```graphql
 getByForce(
@@ -392,7 +394,8 @@ getByForce(
 # Get Legendary 👇🏼
 
 - Returns the type that is most likely to be a Legendary Pokémon
-    - **type** by default is **psychic**
+
+  - **type** by default is **psychic**
 
 - Fields:
 
@@ -469,7 +472,8 @@ getLegendary(
 # Get Legend Percentage 👇🏼
 
 - Returns type percentage that is most likely to be a Legendary Pokémon
-    - **type** by default is **psychic**
+
+  - **type** by default is **psychic**
 
 - Fields:
 
@@ -503,40 +507,11 @@ type Legend {
 ```graphql
 {
   "data": {
-    "getLegendary": [
+    "getLegendPercentage": [
       {
-        "english_name": "Deoxys",
-        "type": [
-          "psychic",
-          ""
-        ],
-        "experience": 1250000,
-        "attack": 150,
-        "defense": 50,
-        "group_by_force": 1
-      },
-      {
-        "english_name": "Solgaleo",
-        "type": [
-          "psychic",
-          "steel"
-        ],
-        "experience": 1250000,
-        "attack": 137,
-        "defense": 107,
-        "group_by_force": 1
-      },
-      {
-        "english_name": "Metagross",
-        "type": [
-          "steel",
-          "psychic"
-        ],
-        "experience": 1250000,
-        "attack": 135,
-        "defense": 130,
-        "group_by_force": 2
-      },
+        "type_pokemon": "psychic",
+        "prob_type_legendary": 1.498
+      }
     ]
   }
 }

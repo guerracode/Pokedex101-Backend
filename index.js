@@ -2,6 +2,7 @@ const express = require('express');
 const { makeExecutableSchema } = require('graphql-tools');
 const { graphqlHTTP } = require('express-graphql');
 const { readFileSync } = require('fs');
+const cors = require('cors');
 const { join } = require('path');
 const config = require('./config/config');
 const resolvers = require('./lib/graphql/resolvers');
@@ -16,6 +17,8 @@ const typeDefs = readFileSync(
 );
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+app.use(cors());
 
 app.use(
   '/api',
