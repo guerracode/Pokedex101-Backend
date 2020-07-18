@@ -1,8 +1,12 @@
 const chalk = require('chalk');
 
-function errorHandler(error) {
+function errorHandler(error, show = false) {
   console.error(chalk.red(error));
-  throw new Error('Fallo en la operacion del servidor');
+  if (show) {
+    throw new Error(error);
+  } else {
+    throw new Error('Something is Wrong');
+  }
 }
 
 module.exports = errorHandler;
