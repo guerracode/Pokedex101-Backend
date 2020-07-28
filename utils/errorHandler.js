@@ -1,3 +1,5 @@
+'use strict';
+
 const chalk = require('chalk');
 
 function errorHandler(error, show = false) {

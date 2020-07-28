@@ -6,6 +6,7 @@ const cors = require('cors');
 const { join } = require('path');
 const config = require('./config/config');
 const resolvers = require('./lib/graphql/resolvers');
+// const { graphqlUploadExpress } = require('graphql-upload');
 
 const app = express();
 const port = config.port;
@@ -21,7 +22,8 @@ const schema = makeExecutableSchema({ typeDefs, resolvers });
 app.use(cors());
 
 app.use(
-  '/api',
+  '/',
+  // graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   graphqlHTTP({
     schema: schema,
     rootValue: resolvers,
@@ -31,6 +33,6 @@ app.use(
 
 const server = app.listen(port, () => {
   console.log(
-    `Server is listening at http://localhost:${server.address().port}/api`
+    `Server is listening at http://localhost:${server.address().port}`
   );
 });

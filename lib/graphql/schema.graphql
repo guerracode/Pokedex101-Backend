@@ -1,4 +1,3 @@
-
 type Card {
   _id: ID!
   pokemon_number: Int!
@@ -33,12 +32,12 @@ type Query {
   getCards(page: Int, numberOfPages: Int): [Card]
   "Search cards"
   searchCards(
-    type: String,
-    experience: [Int],
-    attack: [Int],
-    name: String,
-    page: Int,
-    numberOfPages: Int,
+    type: String
+    experience: [Int]
+    attack: [Int]
+    name: String
+    page: Int
+    numberOfPages: Int
   ): [Card]
   "Get data depending the group_by_force number"
   getByForce(force: Int!, page: Int, numberOfPages: Int): [Card]
@@ -46,4 +45,56 @@ type Query {
   getLegendary(type: String, page: Int, numberOfPages: Int): [Card]
   "Get Legendary porcentage"
   getLegendPercentage(type: String): [Legend]
+}
+
+input CardInput {
+  pokemon_number: Int
+  icon_url: String
+  english_name: String!
+  type: [String]
+  abilities: [String]
+  experience: Int
+  generation: String
+  attack: Int
+  special_attack: Int
+  defense: Int
+  special_defense: Int
+  speed: Int
+  hp: Int
+  image_url: String
+  weight_kg: String
+  height_m: String
+  percentage_male: String
+  percentage_female: String
+  group_by_force: Int
+}
+
+input CardEditInput {
+  icon_url: String
+  english_name: String
+  type: [String]
+  abilities: [String]
+  experience: Int
+  generation: String
+  attack: Int
+  special_attack: Int
+  defense: Int
+  special_defense: Int
+  speed: Int
+  hp: Int
+  image_url: String
+  weight_kg: String
+  height_m: String
+  percentage_male: String
+  percentage_female: String
+  group_by_force: Int
+}
+
+type Mutation {
+  "Create new pokemons"
+  createPokemon(input: CardInput!): Card
+  "Edit pokemon"
+  updatePokemon(_id: ID!, input: CardEditInput!): Card
+  "Delete pokemon"
+  deletePokemon(_id: ID!): String
 }

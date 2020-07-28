@@ -1,3 +1,5 @@
+'use strict';
+
 const data = {
   Number: 1,
   image_url: 'url',
