@@ -6,7 +6,10 @@
 
 ### **API Endpoint**:
 
-https://pokedex-101.herokuapp.com/api
+API:   
+https://pokedexapi.guerracode.com   
+Documentation:    
+https://pokedexapi.guerracode.com/api-docs
 
 ---
 
@@ -575,9 +578,13 @@ mutation CreatePokemon($icon: Upload, $image: Upload) {
 {
   "data": {
     "createPokemon": {
-      "_id": "5f1f7a49397ad4113bb485a8",
-      "english_name": "SuperPokemon",
-      "pokemon_number": 900
+      "pokemon_number": 895,
+      "english_name": "Poncho",
+      "icon_url": "https://storage.cloud.google.com/pokedex-images/iconshark.png",
+      "image_url": "https://storage.cloud.google.com/pokedex-images/frame.png",
+      "type": [
+        "rock"
+      ]
     }
   }
 }
@@ -616,14 +623,21 @@ group_by_force: Int
 - Example Query:
 
 ```graphql
-mutation {
+mutation updatePokemon($image: Upload) {
   updatePokemon(
-    _id: "5f1fa8f974158732e74e68d7"
-    input: { english_name: "TestPokemon" }
+    _id: "5f22512feeac0feef3b9420b"
+    input: {
+      english_name: "Ponchito"
+      image_url: $image
+      type: ["shark"]
+      abilities: ["sweam", "fast"]
+    }
   ) {
-    _id
-    english_name
     pokemon_number
+    english_name
+    icon_url
+    image_url
+    type
   }
 }
 ```
@@ -633,10 +647,14 @@ mutation {
 ```graphql
 {
   "data": {
-    "editPokemon": {
-      "_id": "5f1fa8f974158732e74e68d7",
-      "english_name": "TestPokemon",
-      "pokemon_number": 894
+    "updatePokemon": {
+      "pokemon_number": 895,
+      "english_name": "Ponchito",
+      "icon_url": "https://storage.cloud.google.com/pokedex-images/iconshark.png",
+      "image_url": "https://storage.cloud.google.com/pokedex-images/frame.png",
+      "type": [
+        "shark"
+      ]
     }
   }
 }

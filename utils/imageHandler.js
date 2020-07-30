@@ -10,6 +10,5 @@ module.exports = async file => {
   } catch (err) {
     errorHandler(`imageHandler Error: ${err}`, true);
   }
-  console.log(`Image URL:: ${urlImage}`);
   return urlImage;
 };

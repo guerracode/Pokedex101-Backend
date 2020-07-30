@@ -31,18 +31,19 @@ module.exports = {
     };
 
     const newPokemon = Object.assign(defaults, input);
-    if (input.icon_url) {
-      newPokemon.icon_url = await imageHandler(input.icon_url);
-    }
-    if (input.image_url) {
-      newPokemon.image_url = await imageHandler(input.image_url);
-    }
 
     let db;
     let pokemon;
     let maxPokemons;
 
     try {
+      if (input.icon_url) {
+        newPokemon.icon_url = await imageHandler(input.icon_url);
+      }
+      if (input.image_url) {
+        newPokemon.image_url = await imageHandler(input.image_url);
+      }
+
       db = await connectDB();
       maxPokemons = await db.collection(COLLECTION).find().count();
       newPokemon.pokemon_number = maxPokemons + 1;
@@ -59,11 +60,20 @@ module.exports = {
     let db;
     let pokemon;
 
+    const updatePokemon = Object.assign({}, input);
+
     try {
+      if (input.icon_url) {
+        updatePokemon.icon_url = await imageHandler(input.icon_url);
+      }
+      if (input.image_url) {
+        updatePokemon.image_url = await imageHandler(input.image_url);
+      }
+
       db = await connectDB();
       await db
         .collection(COLLECTION)
-        .updateOne({ _id: ObjectID(_id) }, { $set: input });
+        .updateOne({ _id: ObjectID(_id) }, { $set: updatePokemon });
 
       pokemon = await db.collection(COLLECTION).findOne({ _id: ObjectID(_id) });
     } catch (error) {

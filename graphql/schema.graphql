@@ -80,7 +80,7 @@ input CardInput {
 }
 
 input CardEditInput {
-  icon_url: String
+  icon_url: Upload
   english_name: String
   type: [String]
   abilities: [String]
@@ -92,7 +92,7 @@ input CardEditInput {
   special_defense: Int
   speed: Int
   hp: Int
-  image_url: String
+  image_url: Upload
   weight_kg: String
   height_m: String
   percentage_male: String
