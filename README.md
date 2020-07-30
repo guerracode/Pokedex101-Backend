@@ -1,12 +1,15 @@
-# Pokedex 101 API Documentation
+# Pokedex 101 API Doc
 
-# **GraphQL API**
+# **GraphQL API Documentation**
 
 ---
 
 ### **API Endpoint**:
 
-https://pokedex-101.herokuapp.com/api
+API:   
+https://pokedexapi.guerracode.com   
+Documentation:    
+https://pokedexapi.guerracode.com/api-docs
 
 ---
 
@@ -20,7 +23,7 @@ https://pokedex-101.herokuapp.com/api
 - Fields:
 
 ```graphql
-getCards(page: Int, numberOfPages: Int): [Card]
+getCards(page: Int, numberOfPages: Int): [Card]Ï
 ```
 
 - Schema **Card:**
@@ -513,6 +516,174 @@ type Legend {
         "prob_type_legendary": 1.498
       }
     ]
+  }
+}
+```
+
+# Create Pokemon
+
+Create new Pokémon.
+
+- Fields:
+
+```graphql
+createPokemon(input: CardInput!): Card
+
+# CardInput
+pokemon_number: Int
+icon_url: Upload
+english_name: String!
+type: [String]
+abilities: [String]
+experience: Int
+generation: String
+attack: Int
+special_attack: Int
+defense: Int
+special_defense: Int
+speed: Int
+hp: Int
+image_url: Upload
+weight_kg: String
+height_m: String
+percentage_male: String
+percentage_female: String
+group_by_force: Int
+```
+
+- Example **Query**:
+
+```graphql
+mutation CreatePokemon($icon: Upload, $image: Upload) {
+  createPokemon(
+    input: {
+      english_name: "NewPokemon"
+      icon_url: $icon
+      image_url: $image
+      type: ["fire", "super"]
+    }
+  ) {
+    pokemon_number
+    english_name
+    icon_url
+    image_url
+    type
+  }
+}
+```
+
+- Example **Response**:
+
+```graphql
+{
+  "data": {
+    "createPokemon": {
+      "pokemon_number": 895,
+      "english_name": "Poncho",
+      "icon_url": "https://storage.cloud.google.com/pokedex-images/iconshark.png",
+      "image_url": "https://storage.cloud.google.com/pokedex-images/frame.png",
+      "type": [
+        "rock"
+      ]
+    }
+  }
+}
+```
+
+# Update Pokemon
+
+Edit the field of any pokemon
+
+- Fields
+
+```graphql
+editPokemon(_id: ID!input: CardEditInput!): Card
+
+# CardInput:
+icon_url: String
+english_name: String
+type: [String]
+abilities: [String]
+experience: Int
+generation: String
+attack: Int
+special_attack: Int
+defense: Int
+special_defense: Int
+speed: Int
+hp: Int
+image_url: String
+weight_kg: String
+height_m: String
+percentage_male: String
+percentage_female: String
+group_by_force: Int
+```
+
+- Example Query:
+
+```graphql
+mutation updatePokemon($image: Upload) {
+  updatePokemon(
+    _id: "5f22512feeac0feef3b9420b"
+    input: {
+      english_name: "Ponchito"
+      image_url: $image
+      type: ["shark"]
+      abilities: ["sweam", "fast"]
+    }
+  ) {
+    pokemon_number
+    english_name
+    icon_url
+    image_url
+    type
+  }
+}
+```
+
+- Example Response
+
+```graphql
+{
+  "data": {
+    "updatePokemon": {
+      "pokemon_number": 895,
+      "english_name": "Ponchito",
+      "icon_url": "https://storage.cloud.google.com/pokedex-images/iconshark.png",
+      "image_url": "https://storage.cloud.google.com/pokedex-images/frame.png",
+      "type": [
+        "shark"
+      ]
+    }
+  }
+}
+```
+
+# Delete Pokemon
+
+Delete all information of a Pokémon:
+
+- Fields:
+
+```graphql
+deletePokemon(_id: ID!): String
+```
+
+- Example Query:
+
+```graphql
+mutation {
+  deletePokemon(_id: "5f1fa8f974158732e74e68d7")
+}
+```
+
+- Example Response:
+
+```graphql
+{
+  "data": {
+    "deletePokemon": "Pokemon with id 5f1fa8f974158732e74e68d7 deleted successfully"
   }
 }
 ```

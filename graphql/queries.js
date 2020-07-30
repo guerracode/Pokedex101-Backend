@@ -1,7 +1,7 @@
 'use strict';
 
-const errorHandler = require('../../utils/errorHandler');
-const connectDB = require('../db/mongo');
+const errorHandler = require('../utils/errorHandler');
+const connectDB = require('../lib/db/mongo');
 
 const COLLECTION = 'pokemon';
 const PAGE = 1;
@@ -180,4 +180,5 @@ module.exports = {
 
     return cards;
   },
+  uploads: (parent, args) => {},
 };

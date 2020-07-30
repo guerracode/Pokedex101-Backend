@@ -1,0 +1,1079 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Pokedex 101 API Doc</title><style>
+  /* webkit printing magic: print all background colors */
+  html {
+    -webkit-print-color-adjust: exact;
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  @media only screen {
+    body {
+      margin: 2em auto;
+      max-width: 900px;
+      color: rgb(55, 53, 47);
+    }
+  }
+  
+  body {
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+  
+  a,
+  a.visited {
+    color: inherit;
+    text-decoration: underline;
+  }
+  
+  .pdf-relative-link-path {
+    font-size: 80%;
+    color: #444;
+  }
+  
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0.75em;
+  }
+  
+  h1 {
+    font-size: 1.875rem;
+    margin-top: 1.875rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+    margin-top: 1.25rem;
+  }
+  
+  .source {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 1.5em;
+    word-break: break-all;
+  }
+  
+  .callout {
+    border-radius: 3px;
+    padding: 1rem;
+  }
+  
+  figure {
+    margin: 1.25em 0;
+    page-break-inside: avoid;
+  }
+  
+  figcaption {
+    opacity: 0.5;
+    font-size: 85%;
+    margin-top: 0.5em;
+  }
+  
+  mark {
+    background-color: transparent;
+  }
+  
+  .indented {
+    padding-left: 1.5em;
+  }
+  
+  hr {
+    background: transparent;
+    display: block;
+    width: 100%;
+    height: 1px;
+    visibility: visible;
+    border: none;
+    border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  @media only print {
+    img {
+      max-height: 100vh;
+      object-fit: contain;
+    }
+  }
+  
+  @page {
+    margin: 1in;
+  }
+  
+  .collection-content {
+    font-size: 0.875rem;
+  }
+  
+  .column-list {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .column {
+    padding: 0 1em;
+  }
+  
+  .column:first-child {
+    padding-left: 0;
+  }
+  
+  .column:last-child {
+    padding-right: 0;
+  }
+  
+  .table_of_contents-item {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.3;
+    padding: 0.125rem;
+  }
+  
+  .table_of_contents-indent-1 {
+    margin-left: 1.5rem;
+  }
+  
+  .table_of_contents-indent-2 {
+    margin-left: 3rem;
+  }
+  
+  .table_of_contents-indent-3 {
+    margin-left: 4.5rem;
+  }
+  
+  .table_of_contents-link {
+    text-decoration: none;
+    opacity: 0.7;
+    border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+  }
+  
+  table,
+  th,
+  td {
+    border: 1px solid rgba(55, 53, 47, 0.09);
+    border-collapse: collapse;
+  }
+  
+  table {
+    border-left: none;
+    border-right: none;
+  }
+  
+  th,
+  td {
+    font-weight: normal;
+    padding: 0.25em 0.5em;
+    line-height: 1.5;
+    min-height: 1.5em;
+    text-align: left;
+  }
+  
+  th {
+    color: rgba(55, 53, 47, 0.6);
+  }
+  
+  ol,
+  ul {
+    margin: 0;
+    margin-block-start: 0.6em;
+    margin-block-end: 0.6em;
+  }
+  
+  li > ol:first-child,
+  li > ul:first-child {
+    margin-block-start: 0.6em;
+  }
+  
+  ul > li {
+    list-style: disc;
+  }
+  
+  ul.to-do-list {
+    text-indent: -1.7em;
+  }
+  
+  ul.to-do-list > li {
+    list-style: none;
+  }
+  
+  .to-do-children-checked {
+    text-decoration: line-through;
+    opacity: 0.375;
+  }
+  
+  ul.toggle > li {
+    list-style: none;
+  }
+  
+  ul {
+    padding-inline-start: 1.7em;
+  }
+  
+  ul > li {
+    padding-left: 0.1em;
+  }
+  
+  ol {
+    padding-inline-start: 1.6em;
+  }
+  
+  ol > li {
+    padding-left: 0.2em;
+  }
+  
+  .mono ol {
+    padding-inline-start: 2em;
+  }
+  
+  .mono ol > li {
+    text-indent: -0.4em;
+  }
+  
+  .toggle {
+    padding-inline-start: 0em;
+    list-style-type: none;
+  }
+  
+  /* Indent toggle children */
+  .toggle > li > details {
+    padding-left: 1.7em;
+  }
+  
+  .toggle > li > details > summary {
+    margin-left: -1.1em;
+  }
+  
+  .selected-value {
+    display: inline-block;
+    padding: 0 0.5em;
+    background: rgba(206, 205, 202, 0.5);
+    border-radius: 3px;
+    margin-right: 0.5em;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+    white-space: nowrap;
+  }
+  
+  .collection-title {
+    display: inline-block;
+    margin-right: 1em;
+  }
+  
+  time {
+    opacity: 0.5;
+  }
+  
+  .icon {
+    display: inline-block;
+    max-width: 1.2em;
+    max-height: 1.2em;
+    text-decoration: none;
+    vertical-align: text-bottom;
+    margin-right: 0.5em;
+  }
+  
+  img.icon {
+    border-radius: 3px;
+  }
+  
+  .user-icon {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 100%;
+    margin-right: 0.5rem;
+  }
+  
+  .user-icon-inner {
+    font-size: 0.8em;
+  }
+  
+  .text-icon {
+    border: 1px solid #000;
+    text-align: center;
+  }
+  
+  .page-cover-image {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: 30vh;
+  }
+  
+  .page-header-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .page-header-icon-with-cover {
+    margin-top: -0.72em;
+    margin-left: 0.07em;
+  }
+  
+  .page-header-icon img {
+    border-radius: 3px;
+  }
+  
+  .link-to-page {
+    margin: 1em 0;
+    padding: 0;
+    border: none;
+    font-weight: 500;
+  }
+  
+  p > .user {
+    opacity: 0.5;
+  }
+  
+  td > .user,
+  td > time {
+    white-space: nowrap;
+  }
+  
+  input[type="checkbox"] {
+    transform: scale(1.5);
+    margin-right: 0.6em;
+    vertical-align: middle;
+  }
+  
+  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  
+  .image {
+    border: none;
+    margin: 1.5em 0;
+    padding: 0;
+    border-radius: 0;
+    text-align: center;
+  }
+  
+  .code,
+  code {
+    background: rgba(135, 131, 120, 0.15);
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 85%;
+    tab-size: 2;
+  }
+  
+  code {
+    color: #eb5757;
+  }
+  
+  .code {
+    padding: 1.5em 1em;
+  }
+  
+  .code-wrap {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  
+  .code > code {
+    background: none;
+    padding: 0;
+    font-size: 100%;
+    color: inherit;
+  }
+  
+  blockquote {
+    font-size: 1.25em;
+    margin: 1em 0;
+    padding-left: 1em;
+    border-left: 3px solid rgb(55, 53, 47);
+  }
+  
+  .bookmark {
+    text-decoration: none;
+    max-height: 8em;
+    padding: 0;
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+  }
+  
+  .bookmark-title {
+    font-size: 0.85em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 1.75em;
+    white-space: nowrap;
+  }
+  
+  .bookmark-text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .bookmark-info {
+    flex: 4 1 180px;
+    padding: 12px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .bookmark-image {
+    width: 33%;
+    flex: 1 1 180px;
+    display: block;
+    position: relative;
+    object-fit: cover;
+    border-radius: 1px;
+  }
+  
+  .bookmark-description {
+    color: rgba(55, 53, 47, 0.6);
+    font-size: 0.75em;
+    overflow: hidden;
+    max-height: 4.5em;
+    word-break: break-word;
+  }
+  
+  .bookmark-href {
+    font-size: 0.75em;
+    margin-top: 0.25em;
+  }
+  
+  .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+  .code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+  .serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+  .mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+  .pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+  
+  .pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+  
+  .pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+  
+  .pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+  
+  .highlight-default {
+  }
+  .highlight-gray {
+    color: rgb(155,154,151);
+  }
+  .highlight-brown {
+    color: rgb(100,71,58);
+  }
+  .highlight-orange {
+    color: rgb(217,115,13);
+  }
+  .highlight-yellow {
+    color: rgb(223,171,1);
+  }
+  .highlight-teal {
+    color: rgb(15,123,108);
+  }
+  .highlight-blue {
+    color: rgb(11,110,153);
+  }
+  .highlight-purple {
+    color: rgb(105,64,165);
+  }
+  .highlight-pink {
+    color: rgb(173,26,114);
+  }
+  .highlight-red {
+    color: rgb(224,62,62);
+  }
+  .highlight-gray_background {
+    background: rgb(235,236,237);
+  }
+  .highlight-brown_background {
+    background: rgb(233,229,227);
+  }
+  .highlight-orange_background {
+    background: rgb(250,235,221);
+  }
+  .highlight-yellow_background {
+    background: rgb(251,243,219);
+  }
+  .highlight-teal_background {
+    background: rgb(221,237,234);
+  }
+  .highlight-blue_background {
+    background: rgb(221,235,241);
+  }
+  .highlight-purple_background {
+    background: rgb(234,228,242);
+  }
+  .highlight-pink_background {
+    background: rgb(244,223,235);
+  }
+  .highlight-red_background {
+    background: rgb(251,228,228);
+  }
+  .block-color-default {
+    color: inherit;
+    fill: inherit;
+  }
+  .block-color-gray {
+    color: rgba(55, 53, 47, 0.6);
+    fill: rgba(55, 53, 47, 0.6);
+  }
+  .block-color-brown {
+    color: rgb(100,71,58);
+    fill: rgb(100,71,58);
+  }
+  .block-color-orange {
+    color: rgb(217,115,13);
+    fill: rgb(217,115,13);
+  }
+  .block-color-yellow {
+    color: rgb(223,171,1);
+    fill: rgb(223,171,1);
+  }
+  .block-color-teal {
+    color: rgb(15,123,108);
+    fill: rgb(15,123,108);
+  }
+  .block-color-blue {
+    color: rgb(11,110,153);
+    fill: rgb(11,110,153);
+  }
+  .block-color-purple {
+    color: rgb(105,64,165);
+    fill: rgb(105,64,165);
+  }
+  .block-color-pink {
+    color: rgb(173,26,114);
+    fill: rgb(173,26,114);
+  }
+  .block-color-red {
+    color: rgb(224,62,62);
+    fill: rgb(224,62,62);
+  }
+  .block-color-gray_background {
+    background: rgb(235,236,237);
+  }
+  .block-color-brown_background {
+    background: rgb(233,229,227);
+  }
+  .block-color-orange_background {
+    background: rgb(250,235,221);
+  }
+  .block-color-yellow_background {
+    background: rgb(251,243,219);
+  }
+  .block-color-teal_background {
+    background: rgb(221,237,234);
+  }
+  .block-color-blue_background {
+    background: rgb(221,235,241);
+  }
+  .block-color-purple_background {
+    background: rgb(234,228,242);
+  }
+  .block-color-pink_background {
+    background: rgb(244,223,235);
+  }
+  .block-color-red_background {
+    background: rgb(251,228,228);
+  }
+  .select-value-color-default { background-color: rgba(206,205,202,0.5); }
+  .select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+  .select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+  .select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+  .select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+  .select-value-color-green { background-color: rgba(0,135,107,0.2); }
+  .select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+  .select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+  .select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+  .select-value-color-red { background-color: rgba(255,0,26,0.2); }
+  
+  .checkbox {
+    display: inline-flex;
+    vertical-align: text-bottom;
+    width: 16;
+    height: 16;
+    background-size: 16px;
+    margin-left: 2px;
+    margin-right: 5px;
+  }
+  
+  .checkbox-on {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+  }
+  
+  .checkbox-off {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+  }
+    
+  </style></head><body><article id="908b4537-8d41-483c-8f72-0b7e49345043" class="page mono"><header><div class="page-header-icon undefined"><img class="icon" src="https://graphql.org/img/logo.svg"/></div><h1 class="page-title">Pokedex 101 API Doc</h1></header><div class="page-body"><h1 id="1e5cc074-88ec-4040-a112-946b9ba810b2" class=""><mark class="highlight-orange"><strong>GraphQL API Documentation</strong></mark></h1><p id="068a5bbb-8e37-4753-8279-74fba9cae6b2" class="">
+  </p><hr id="4bdad16c-4fd4-4e70-8791-cd6d660b75fc"/><h3 id="5c0dd31e-d95b-411c-943d-32690975f6d7" class=""><mark class="highlight-teal"><strong>API Endpoint</strong></mark><mark class="highlight-teal">:</mark> </h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="20c5f62b-9e2c-4ea1-a06d-c169044686f5"><div style="font-size:1.5em"><span class="icon">💻</span></div><div style="width:100%">https://pokedexapi.guerracode.com</div></figure><hr id="5438b7c9-34ba-4982-af6d-64a014693550"/><h1 id="721cc612-883f-4ebb-8f13-b934aafac256" class=""><mark class="highlight-orange">Get Cards 👇🏼</mark></h1><ul id="90bc53a7-5566-44eb-a99d-e157dc82a67e" class="bulleted-list"><li>Get Cards by page ranges:<ul id="395a97e3-48ed-4616-9ac4-0937390bf0ad" class="bulleted-list"><li><strong>$page:</strong> It’s the page number you want to get (1, 2, 3, 4).</li></ul><ul id="11e23d93-66d3-4538-89b8-37260d436d48" class="bulleted-list"><li><strong>$nuberOfPages:</strong> It’s the number of pages that you want to get (10, 20, 25, etc).</li></ul><p id="d3d2b156-3239-45dc-950f-e2c36c96884a" class="">
+  </p></li></ul><ul id="df06d951-ba8d-4808-9195-86f70405db2b" class="bulleted-list"><li>Fields:</li></ul><pre id="38b53521-67fc-4b2c-807c-753203215c2b" class="code code-wrap"><code>getCards(page: Int, numberOfPages: Int): [Card]Ï</code></pre><ul id="14d41de7-7d9a-4dab-9cb6-e2fc12bd296f" class="bulleted-list"><li>Schema <strong>Card:</strong></li></ul><pre id="3123291a-8955-4e73-b837-8d078cf4b89e" class="code"><code>type Card {
+    _id: ID!
+    pokemon_number: Int!
+    icon_url: String
+    english_name: String
+    type: [String]
+    abilities: [String]
+    experience: String
+    generation: String
+    attack: Int
+    special_attack: Int
+    defense: Int
+    special_defense: Int
+    speed: Int
+    hp: Int
+    image_url: String
+    weight_kg: String
+    height_m: String
+    percentage_male: String
+    percentage_female: String
+    group_by_force: Int
+  }</code></pre><ul id="a7bd96fd-f40f-4636-9295-e3724d6841db" class="bulleted-list"><li>Example <strong>Query</strong>:</li></ul><pre id="ebf444f7-8485-47f5-9a86-46f652ca9c1e" class="code"><code>  query GetCards ($page: Int!, $numberOfPages: Int) {
+      getCards(page: $page, numberOfPages: $numberOfPages){
+          _id
+        pokemon_number
+        icon_url
+        english_name
+        type
+        abilities
+        experience
+        generation
+        attack
+        special_attack
+        defense
+        special_defense
+        speed
+        hp
+        image_url
+        weight_kg
+        height_m
+        percentage_male
+        percentage_female
+         group_by_force
+      }
+    }</code></pre><ul id="63bc5832-597e-4446-9b94-8bba2c48586f" class="bulleted-list"><li>Example <strong>Variables</strong>:</li></ul><pre id="2e16a3d3-4a0b-46e0-b222-952e56a529a1" class="code"><code>{
+    &quot;page&quot;: 1,    
+    &quot;numberOfPages&quot;: 20 
+  }</code></pre><ul id="3f9217ab-fe36-4703-851d-4dcdcd22cba7" class="bulleted-list"><li>Example <strong>Response</strong>:</li></ul><pre id="c56830a0-dc1c-4335-8318-6c2b21482202" class="code code-wrap"><code>{
+    &quot;data&quot;: {
+      &quot;getCards&quot;: [
+        {
+          &quot;_id&quot;: &quot;5f11ebaf75b8bb436b25b10b&quot;,
+          &quot;pokemon_number&quot;: 1,
+          &quot;icon_url&quot;: &quot;https://serebii.net/pokedex-swsh/icon/001.png&quot;,
+          &quot;english_name&quot;: &quot;Bulbasaur&quot;,
+          &quot;type&quot;: [
+            &quot;grass&quot;,
+            &quot;poison&quot;
+          ],
+          &quot;abilities&quot;: [
+            &quot;Overgrow&quot;,
+            &quot;Chlorophyll&quot;,
+            &quot;&quot;
+          ],
+          &quot;experience&quot;: 1059860,
+          &quot;generation&quot;: &quot;1&quot;,
+          &quot;attack&quot;: 49,
+          &quot;special_attack&quot;: 65,
+          &quot;defense&quot;: 49,
+          &quot;special_defense&quot;: 65,
+          &quot;speed&quot;: 45,
+          &quot;hp&quot;: 45,
+          &quot;image_url&quot;: &quot;https://serebii.net/pokemon/art/001.png&quot;,
+          &quot;weight_kg&quot;: &quot;6.9kg&quot;,
+          &quot;height_m&quot;: &quot;0.7m&quot;,
+          &quot;percentage_male&quot;: &quot;88.14%&quot;,
+          &quot;percentage_female&quot;: &quot;11.86%&quot;,
+          &quot;group_by_force&quot;: 0
+        },
+        {
+          &quot;_id&quot;: &quot;5f11ebaf75b8bb436b25b10c&quot;,
+          &quot;pokemon_number&quot;: 2,
+          &quot;icon_url&quot;: &quot;https://serebii.net/pokedex-swsh/icon/002.png&quot;,
+          &quot;english_name&quot;: &quot;Ivysaur&quot;,
+          &quot;type&quot;: [
+            &quot;grass&quot;,
+            &quot;poison&quot;
+          ],
+          &quot;abilities&quot;: [
+            &quot;Overgrow&quot;,
+            &quot;Chlorophyll&quot;,
+            &quot;&quot;
+          ],
+          &quot;experience&quot;: 1059860,
+          &quot;generation&quot;: &quot;1&quot;,
+          &quot;attack&quot;: 62,
+          &quot;special_attack&quot;: 80,
+          &quot;defense&quot;: 63,
+          &quot;special_defense&quot;: 80,
+          &quot;speed&quot;: 60,
+          &quot;hp&quot;: 60,
+          &quot;image_url&quot;: &quot;https://serebii.net/pokemon/art/002.png&quot;,
+          &quot;weight_kg&quot;: &quot;13.0kg&quot;,
+          &quot;height_m&quot;: &quot;1.0m&quot;,
+          &quot;percentage_male&quot;: &quot;88.14%&quot;,
+          &quot;percentage_female&quot;: &quot;11.86%&quot;,
+          &quot;group_by_force&quot;: 0
+        },
+        {
+          &quot;_id&quot;: &quot;5f11ebaf75b8bb436b25b10d&quot;,
+          &quot;pokemon_number&quot;: 3,
+          &quot;icon_url&quot;: &quot;https://serebii.net/pokedex-swsh/icon/003.png&quot;,
+          &quot;english_name&quot;: &quot;Venusaur&quot;,
+          &quot;type&quot;: [
+            &quot;grass&quot;,
+            &quot;poison&quot;
+          ],
+          &quot;abilities&quot;: [
+            &quot;Overgrow&quot;,
+            &quot;Chlorophyll&quot;,
+            &quot;&quot;
+          ],
+          &quot;experience&quot;: 1059860,
+          &quot;generation&quot;: &quot;1&quot;,
+          &quot;attack&quot;: 82,
+          &quot;special_attack&quot;: 100,
+          &quot;defense&quot;: 83,
+          &quot;special_defense&quot;: 100,
+          &quot;speed&quot;: 80,
+          &quot;hp&quot;: 80,
+          &quot;image_url&quot;: &quot;https://serebii.net/pokemon/art/003.png&quot;,
+          &quot;weight_kg&quot;: &quot;100.0kg&quot;,
+          &quot;height_m&quot;: &quot;2.0m&quot;,
+          &quot;percentage_male&quot;: &quot;88.14%&quot;,
+          &quot;percentage_female&quot;: &quot;11.86%&quot;,
+          &quot;group_by_force&quot;: 0
+        }
+      ]
+    }
+  }</code></pre><p id="fd88ce0f-8dde-4653-8e5d-009cfe823da5" class="">
+  </p><hr id="456c74e1-b736-4b06-b544-0dd0cbecbcbb"/><h1 id="ef7fd35c-7c57-42bf-99ac-b9b6f18bc983" class=""><mark class="highlight-orange">Search Cards 👇🏼</mark></h1><ul id="b06e765e-1cda-4e21-9dc9-8a9adce7519e" class="bulleted-list"><li>Search Cards by:<ul id="4cd15fff-6902-4303-a177-ce1903de161d" class="bulleted-list"><li>type</li></ul><ul id="2bd14247-8ec3-4c52-9d3b-f4974163e8e0" class="bulleted-list"><li>experience</li></ul><ul id="7de36a6d-1d46-4bd6-9a77-1bfefa596efd" class="bulleted-list"><li>attack</li></ul><ul id="a2c56820-2d97-40b5-a146-510772229b18" class="bulleted-list"><li>name</li></ul></li></ul><ul id="ba591320-a4a3-4e83-a0de-67689f5ff006" class="bulleted-list"><li>Just send what you want to search for in the query parameters, you can put any parameter you want.</li></ul><ul id="e53574d8-499b-4480-ba5e-24c96ac7795c" class="bulleted-list"><li>You can control the page and numberOfPages like in <strong>getCards()</strong>.</li></ul><p id="0b302718-1fba-4e5c-96d6-436bd1b2fb05" class="">
+  </p><ul id="5712d783-ec9b-47ae-aa1f-2e09d8b100a0" class="bulleted-list"><li>Fields:</li></ul><pre id="268c494e-09c0-42cd-85ce-0d00fb62ada4" class="code code-wrap"><code>searchCards(
+    type: String
+    experience: [Int]
+    attack: [Int]
+    name: String
+    page: Int
+    numberOfPages: Int
+  ): [Card]</code></pre><ul id="31f5f3dc-3b52-44fd-a781-8aa9e8acef09" class="bulleted-list"><li>Schema: <strong>Card</strong> schema above 👆🏼</li></ul><ul id="a2354ab3-4946-4325-a877-435b0047e694" class="bulleted-list"><li>Example <strong>Query</strong>:</li></ul><pre id="49936c0f-5005-4e81-8f04-2ef3d59c4350" class="code"><code>{
+    searchCards(type: &quot;fire&quot;, page: 1, numberOfPages: 3) {
+        _id
+        pokemon_number
+        icon_url
+        english_name
+        type
+        abilities
+        experience
+        generation
+        attack
+        special_attack
+        defense
+        special_defense
+        speed
+        hp
+        image_url
+        weight_kg
+        height_m
+        percentage_male
+        percentage_female
+         group_by_force
+    }
+  }</code></pre><h3 id="56cddaae-18ce-4fe9-ad62-5bdf6db25d9a" class="">Attack and Experience searching:</h3><ul id="35782d0f-57a2-42f6-94e8-b113109dabd1" class="bulleted-list"><li>Attack min and max values allowed:<ul id="dc3c0f88-e9a8-4a18-9b7b-b742a5c86c04" class="bulleted-list"><li><strong>Min</strong>: 5, <strong>Max</strong>: 185</li></ul></li></ul><ul id="3d33dfb2-8519-4cea-8cd3-bc844184284b" class="bulleted-list"><li>Experience min and max values allowed:<ul id="1892c6bf-57be-4d11-91b5-39c06980c70e" class="bulleted-list"><li><strong>Min</strong>: 600000, <strong>Max</strong>: 1640000</li></ul></li></ul><p id="571e78f8-dd8b-424e-aba3-56a5abfced5d" class="">Example <strong>Query</strong>:</p><pre id="90e70801-1693-454f-a431-df2c9e1ff2f7" class="code code-wrap"><code># In the attack and experience array firs is the Min and then Max number.
+  {
+    searchCards(attack: [54, 55], experience: [1250000, 1260000]) {
+        pokemon_number
+        english_name
+        type
+        attack
+        defense
+        experience
+    }
+  }</code></pre><ul id="59d0a0ba-849c-488d-a955-b61a73da6f98" class="bulleted-list"><li>Example <strong>Response</strong>:</li></ul><pre id="bc420096-9515-4157-8ad1-60871e20d217" class="code code-wrap"><code>{
+    &quot;data&quot;: {
+      &quot;searchCards&quot;: [
+        {
+          &quot;pokemon_number&quot;: 374,
+          &quot;english_name&quot;: &quot;Beldum&quot;,
+          &quot;type&quot;: [
+            &quot;steel&quot;,
+            &quot;psychic&quot;
+          ],
+          &quot;attack&quot;: 55,
+          &quot;defense&quot;: 80,
+          &quot;experience&quot;: 1250000
+        },
+        {
+          &quot;pokemon_number&quot;: 602,
+          &quot;english_name&quot;: &quot;Tynamo&quot;,
+          &quot;type&quot;: [
+            &quot;electric&quot;,
+            &quot;&quot;
+          ],
+          &quot;attack&quot;: 55,
+          &quot;defense&quot;: 40,
+          &quot;experience&quot;: 1250000
+        },
+        {
+          &quot;pokemon_number&quot;: 629,
+          &quot;english_name&quot;: &quot;Vullaby&quot;,
+          &quot;type&quot;: [
+            &quot;dark&quot;,
+            &quot;flying&quot;
+          ],
+          &quot;attack&quot;: 55,
+          &quot;defense&quot;: 75,
+          &quot;experience&quot;: 1250000
+        },
+      ]
+    }
+  }</code></pre><p id="704cbf00-1db1-48e6-a701-8b388c3b196d" class="">
+  </p><hr id="b8f31428-9799-4d26-ab81-db8218902149"/><h1 id="a36febab-1727-48c6-ab24-6f9570762576" class=""><mark class="highlight-orange">Get by Force 👇🏼</mark></h1><p id="bae4b3b2-0ba3-4f42-8fc4-cdd72cba5870" class="">
+  </p><ul id="c163c6ee-78d0-4f6f-a70d-f55086ca5799" class="bulleted-list"><li>Filter cards by Force:<ul id="8d94fd83-476c-4655-bded-85968a424468" class="bulleted-list"><li>2: More Powerful Pokemons</li></ul><ul id="b1f558b4-5872-4a10-a6f3-53a3120fbb5c" class="bulleted-list"><li>1: Standard Pokemons</li></ul><ul id="bc2bc35d-9cea-45fd-b4d9-83338ead395d" class="bulleted-list"><li>0: Weak Pokemons</li></ul></li></ul><p id="3a847ae8-8aef-463c-80ef-3eaac8933216" class="">
+  </p><ul id="84f99a34-a184-4056-9ab0-2109b750147e" class="bulleted-list"><li>Fields:<ul id="39a8c771-b337-468a-a3fc-41228587398d" class="bulleted-list"><li><strong>force</strong> number is required.</li></ul></li></ul><pre id="a50742e7-a897-4486-b0f7-980e6a90605b" class="code code-wrap"><code>getByForce(
+    force: Int!
+    page: Int
+    numberOfPages: Int
+  ): [Card]</code></pre><ul id="ed005ea9-411d-47ce-bb66-1e83256c534f" class="bulleted-list"><li>Schema: <strong>Card</strong> schema above 👆🏼</li></ul><ul id="441e3c76-dfa8-4509-83ea-92b0af2db24b" class="bulleted-list"><li>Example <strong>Query</strong>:</li></ul><pre id="22cfa0d8-4bc1-491f-bca2-2e8b4d6d1ffa" class="code code-wrap"><code>{
+    getByForce(force: 2, page: 1, numberOfPages: 20) {
+      english_name
+      type
+      experience
+      attack
+      defense
+      group_by_force
+    }
+  }</code></pre><ul id="8aa599ba-e020-47af-a637-fed2f63f057b" class="bulleted-list"><li>Example <strong>Response</strong>:</li></ul><pre id="7959b4eb-7a68-4688-9e52-75cbb47d258c" class="code code-wrap"><code>{
+    &quot;data&quot;: {
+      &quot;getByForce&quot;: [
+        {
+          &quot;english_name&quot;: &quot;Rampardos&quot;,
+          &quot;type&quot;: [
+            &quot;rock&quot;,
+            &quot;&quot;
+          ],
+          &quot;experience&quot;: 600000,
+          &quot;attack&quot;: 165,
+          &quot;defense&quot;: 60,
+          &quot;group_by_force&quot;: 2
+        },
+        {
+          &quot;english_name&quot;: &quot;Haxorus&quot;,
+          &quot;type&quot;: [
+            &quot;dragon&quot;,
+            &quot;&quot;
+          ],
+          &quot;experience&quot;: 1250000,
+          &quot;attack&quot;: 147,
+          &quot;defense&quot;: 90,
+          &quot;group_by_force&quot;: 2
+        },
+        {
+          &quot;english_name&quot;: &quot;Melmetal&quot;,
+          &quot;type&quot;: [
+            &quot;steel&quot;,
+            &quot;&quot;
+          ],
+          &quot;experience&quot;: 1170000,
+          &quot;attack&quot;: 143,
+          &quot;defense&quot;: 143,
+          &quot;group_by_force&quot;: 2
+        }
+      ]
+    }
+  }</code></pre><p id="c4472118-8b1a-44bd-ae38-d162e6ff856b" class="">
+  </p><hr id="f051ffed-3cb2-47ee-b264-9c44cfd848c1"/><h1 id="0f66a393-3f0f-4421-b2bd-1dcb60d6ce89" class=""><mark class="highlight-orange">Get Legendary 👇🏼</mark></h1><p id="200c4788-8b42-493b-83d0-2baf269bbc43" class="">
+  </p><ul id="bf8bbda5-5913-42a5-841f-b9662d5517a3" class="bulleted-list"><li>Returns the type that is most likely to be a Legendary Pokémon<ul id="49093ca3-b7e5-430b-9d5b-6da905f90cdb" class="bulleted-list"><li><strong>type</strong> by default is <strong>psychic</strong></li></ul></li></ul><p id="29c5ca18-27fe-4321-9d5b-797d45d2704c" class="">
+  </p><ul id="a7e34720-a1d9-4da1-9e11-420425f8094e" class="bulleted-list"><li>Fields:</li></ul><pre id="be6cfde3-aa60-4b20-9e06-54a42ba1b6ed" class="code code-wrap"><code>getLegendary(
+    type: String
+    page: Int
+    numberOfPages: Int
+  ): [Card]</code></pre><ul id="6a1e9950-dca3-4b73-96d9-8393c9d2c783" class="bulleted-list"><li>Schema: <strong>Card</strong> schema above 👆🏼</li></ul><ul id="74894d39-18eb-4d21-956f-4ef8e37263ee" class="bulleted-list"><li>Example <strong>Query</strong>:</li></ul><pre id="ec866f75-0972-4f91-81e3-63564599d469" class="code code-wrap"><code>{
+    getLegendary(type: &quot;psychic&quot;, page: 1, numberOfPages: 20) {
+      english_name
+      type
+      experience
+      attack
+      defense
+      group_by_force
+    }
+  }</code></pre><ul id="a272e74b-519e-4e3a-aba2-f5c144d98b19" class="bulleted-list"><li>Example <strong>Response</strong>:</li></ul><pre id="7990d0bc-5f80-4b0c-a55a-69ba4202203d" class="code code-wrap"><code>{
+    &quot;data&quot;: {
+      &quot;getLegendary&quot;: [
+        {
+          &quot;english_name&quot;: &quot;Deoxys&quot;,
+          &quot;type&quot;: [
+            &quot;psychic&quot;,
+            &quot;&quot;
+          ],
+          &quot;experience&quot;: 1250000,
+          &quot;attack&quot;: 150,
+          &quot;defense&quot;: 50,
+          &quot;group_by_force&quot;: 1
+        },
+        {
+          &quot;english_name&quot;: &quot;Solgaleo&quot;,
+          &quot;type&quot;: [
+            &quot;psychic&quot;,
+            &quot;steel&quot;
+          ],
+          &quot;experience&quot;: 1250000,
+          &quot;attack&quot;: 137,
+          &quot;defense&quot;: 107,
+          &quot;group_by_force&quot;: 1
+        },
+        {
+          &quot;english_name&quot;: &quot;Metagross&quot;,
+          &quot;type&quot;: [
+            &quot;steel&quot;,
+            &quot;psychic&quot;
+          ],
+          &quot;experience&quot;: 1250000,
+          &quot;attack&quot;: 135,
+          &quot;defense&quot;: 130,
+          &quot;group_by_force&quot;: 2
+        }
+      ]
+    }
+  }</code></pre><p id="6dff5c51-4452-4ac7-9eb5-23f3ff0890f7" class="">
+  </p><hr id="33d938aa-401a-44b1-a451-97733d724737"/><h1 id="f6d906c1-4aca-43a8-b5c8-9ea06f6327e3" class=""><mark class="highlight-orange">Get Legend Percentage 👇🏼</mark></h1><p id="dc832db3-283d-4707-954e-015f2a6e4739" class="">
+  </p><ul id="52a3e736-ec87-45e9-8755-e526f441676a" class="bulleted-list"><li>Returns type percentage that is most likely to be a Legendary Pokémon<ul id="9227dab5-c9e1-4914-ae88-ec0f61ec0521" class="bulleted-list"><li><strong>type</strong> by default is <strong>psychic</strong> </li></ul><p id="ad03c24f-461d-4a52-bea1-357b22c17923" class="">
+  </p></li></ul><ul id="69562e7c-7194-472e-a4e0-624121a591d3" class="bulleted-list"><li>Fields:</li></ul><pre id="d569767a-874c-45a3-8a2a-3b3b9b7d362a" class="code code-wrap"><code>getLegendPercentage(type: String): [Legend]</code></pre><ul id="804792d5-993c-4e9b-9646-139244a424d4" class="bulleted-list"><li>Schema <strong>Legend</strong>:</li></ul><pre id="6270d653-19c8-4b81-8344-ffe84f06b6c9" class="code code-wrap"><code>type Legend {
+    _id: ID!
+    type_pokemon: String
+    prob_type_legendary: Float
+  }</code></pre><ul id="99614caa-4153-490a-92d6-6f3ad249d232" class="bulleted-list"><li>Example <strong>Query</strong>:</li></ul><pre id="6add1f8f-e285-4a19-8749-960a0babc517" class="code code-wrap"><code>{
+    getLegendPercentage(type: &quot;psychic&quot;) {
+      type_pokemon
+      prob_type_legendary
+    }
+  }</code></pre><ul id="f200614d-8851-4af2-8a81-8221584f85df" class="bulleted-list"><li>Example <strong>Response</strong>:</li></ul><pre id="da155ab3-ac30-49ec-a284-e9f67b472370" class="code code-wrap"><code>{
+    &quot;data&quot;: {
+      &quot;getLegendPercentage&quot;: [
+        {
+          &quot;type_pokemon&quot;: &quot;psychic&quot;,
+          &quot;prob_type_legendary&quot;: 1.498
+        }
+      ]
+    }
+  }</code></pre><p id="87292d9a-0faf-4bef-a0d8-5b397eb26897" class="">
+  </p><h1 id="20f2a475-5306-4094-aad6-acf37c5ef04c" class=""><mark class="highlight-orange">Create Pokemon</mark></h1><p id="9e25976f-c700-454e-b31a-007dd284cdf9" class="">Create new Pokémon.</p><ul id="24abd723-b341-4c8f-920c-b6512502d313" class="bulleted-list"><li>Fields:</li></ul><pre id="2cae1063-d322-4097-9e30-e40cc0ba437e" class="code code-wrap"><code>createPokemon(input: CardInput!): Card
+  
+  # CardInput
+  pokemon_number: Int
+  icon_url: Upload
+  english_name: String!
+  type: [String]
+  abilities: [String]
+  experience: Int
+  generation: String
+  attack: Int
+  special_attack: Int
+  defense: Int
+  special_defense: Int
+  speed: Int
+  hp: Int
+  image_url: Upload
+  weight_kg: String
+  height_m: String
+  percentage_male: String
+  percentage_female: String
+  group_by_force: Int</code></pre><ul id="3d3cffcc-2fb3-45b1-b503-ebadda489402" class="bulleted-list"><li>Example <strong>Query</strong>:</li></ul><pre id="95e11f1c-5b6b-4d6b-a6a9-863f0d922739" class="code code-wrap"><code>mutation CreatePokemon($icon: Upload, $image: Upload) {
+    createPokemon(input: {
+      english_name: &quot;NewPokemon&quot;,
+      icon_url: $icon,
+      image_url: $image
+      type: [&quot;fire&quot;, &quot;super&quot;]
+    }) {
+     pokemon_number
+      english_name
+      icon_url
+      image_url
+      type
+    }
+  }</code></pre><ul id="52c2f0d3-9ada-4e7e-858b-42a4351145fe" class="bulleted-list"><li>Example <strong>Response</strong>:</li></ul><pre id="d0e7734e-b782-4832-b3f3-0291b35b839f" class="code code-wrap"><code>{
+    &quot;data&quot;: {
+      &quot;createPokemon&quot;: {
+        &quot;pokemon_number&quot;: 895,
+        &quot;english_name&quot;: &quot;Poncho&quot;,
+        &quot;icon_url&quot;: &quot;https://storage.cloud.google.com/pokedex-images/iconshark.png&quot;,
+        &quot;image_url&quot;: &quot;https://storage.cloud.google.com/pokedex-images/frame.png&quot;,
+        &quot;type&quot;: [
+          &quot;rock&quot;
+        ]
+      }
+    }
+  }</code></pre><p id="0f074899-8740-4dba-be6a-fa0efa9bcd46" class="">
+  </p><p id="f57994b6-3fe0-4696-bb74-754b48c2f8cf" class="">
+  </p><h1 id="aa4ba6d7-4667-492e-9f45-a99c40d6d0e3" class=""><mark class="highlight-orange">Update Pokemon</mark></h1><p id="b13f5248-a110-42c5-ad88-e81844df5078" class="">Edit the field of any pokemon</p><ul id="7e037284-92b9-411a-a849-8cd263896b68" class="bulleted-list"><li>Fields</li></ul><pre id="a580bb22-7678-4561-a124-27bc3975096c" class="code code-wrap"><code>editPokemon(_id: ID!input: CardEditInput!): Card
+  
+  # CardInput:
+  icon_url: String
+  english_name: String
+  type: [String]
+  abilities: [String]
+  experience: Int
+  generation: String
+  attack: Int
+  special_attack: Int
+  defense: Int
+  special_defense: Int
+  speed: Int
+  hp: Int
+  image_url: String
+  weight_kg: String
+  height_m: String
+  percentage_male: String
+  percentage_female: String
+  group_by_force: Int</code></pre><ul id="d8bfe8a7-68fd-4d43-9611-0a934a10057c" class="bulleted-list"><li>Example Query:</li></ul><pre id="b453ee8c-6b50-4f82-8a7d-d09da70bc988" class="code code-wrap"><code>mutation updatePokemon($image: Upload) {
+    updatePokemon(_id: &quot;5f22512feeac0feef3b9420b&quot;, input: {
+      english_name: &quot;Ponchito&quot;,
+      image_url: $image
+      type: [&quot;shark&quot;]
+      abilities: [&quot;sweam&quot;, &quot;fast&quot;]
+    }) {
+     pokemon_number
+      english_name
+      icon_url
+      image_url
+      type
+    }
+  }</code></pre><ul id="05dfe6f7-9048-4caf-87d4-cc50b4b9b719" class="bulleted-list"><li>Example Response</li></ul><pre id="1066f928-1312-4068-9adc-f0402a82df13" class="code code-wrap"><code>{
+    &quot;data&quot;: {
+      &quot;updatePokemon&quot;: {
+        &quot;pokemon_number&quot;: 895,
+        &quot;english_name&quot;: &quot;Ponchito&quot;,
+        &quot;icon_url&quot;: &quot;https://storage.cloud.google.com/pokedex-images/iconshark.png&quot;,
+        &quot;image_url&quot;: &quot;https://storage.cloud.google.com/pokedex-images/frame.png&quot;,
+        &quot;type&quot;: [
+          &quot;shark&quot;
+        ]
+      }
+    }
+  }</code></pre><p id="198e127a-9931-489c-98a9-2ee87e8ac885" class="">
+  </p><h1 id="469130d1-068c-45c9-87b4-33a8a59ef5d3" class=""><mark class="highlight-orange">Delete Pokemon</mark></h1><p id="ca9e133c-771b-44fe-ad92-4c0334425da9" class="">Delete all information of a Pokémon:</p><ul id="d0bc60c1-fb18-4d9b-a5f7-112482fad40b" class="bulleted-list"><li>Fields:</li></ul><pre id="99842ecd-328b-4198-becd-5f2156cb8a34" class="code code-wrap"><code>deletePokemon(_id: ID!): String</code></pre><ul id="6207d3bb-3041-4517-923e-011b6e31649d" class="bulleted-list"><li>Example Query:</li></ul><pre id="b57485cf-deba-44c8-9e54-f0bce72afb4c" class="code code-wrap"><code>mutation {
+    deletePokemon(_id: &quot;5f1fa8f974158732e74e68d7&quot;)
+  }</code></pre><ul id="71b95b48-7154-4415-9de7-9d125a9d6f00" class="bulleted-list"><li>Example Response:</li></ul><pre id="bc3c18d0-2e88-4787-9c50-7bf5397fec6f" class="code code-wrap"><code>{
+    &quot;data&quot;: {
+      &quot;deletePokemon&quot;: &quot;Pokemon with id 5f1fa8f974158732e74e68d7 deleted successfully&quot;
+    }
+  }</code></pre><p id="b8c960bd-8ac4-44c4-9531-b1d58d4ae817" class="">
+  </p></div></article></body></html>

@@ -1,3 +1,5 @@
+'use strict';
+
 require('dotenv').config();
 
 module.exports = {
@@ -8,5 +10,9 @@ module.exports = {
     dbPassword: process.env.DB_PASSWORD,
     dbName: process.env.DB_NAME,
     dbHost: process.env.DB_HOST,
+  },
+  gcp: {
+    bucket: process.env.BUCKET,
+    project_id: process.env.PROJECT_ID,
   },
 };
