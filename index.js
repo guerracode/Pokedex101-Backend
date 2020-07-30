@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const { makeExecutableSchema } = require('graphql-tools');
 const { graphqlHTTP } = require('express-graphql');
@@ -11,6 +13,7 @@ const { graphqlUploadExpress } = require('graphql-upload');
 const app = express();
 const port = config.port;
 const isDev = config.node_dev;
+app.use('/api-docs', express.static('public'));
 
 const typeDefs = readFileSync(
   join(__dirname, 'graphql', 'schema.graphql'),
@@ -27,7 +30,7 @@ app.use(
   graphqlHTTP({
     schema: schema,
     rootValue: resolvers,
-    graphiql: true,
+    graphiql: isDev,
   })
 );
 
