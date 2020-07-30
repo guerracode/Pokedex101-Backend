@@ -1,16 +1,18 @@
 'use strict';
 
-const connectDB = require('../db/mongo');
-const errorHandler = require('../../utils/errorHandler');
+const connectDB = require('../lib/db/mongo');
+const errorHandler = require('../utils/errorHandler');
 const { ObjectID } = require('mongodb');
-// const { GraphQLUpload } = require('graphql-upload');
+const image = require('../lib/storage/images');
+const imageHandler = require('../utils/imageHandler');
 
 const COLLECTION = 'pokemon';
 
 module.exports = {
-  createPokemon: async (root, { input}) => {
+  createPokemon: async (root, { input }) => {
     const defaults = {
       icon_url: '',
+      image_url: '',
       type: [''],
       abilities: [''],
       experience: 0,
@@ -21,7 +23,6 @@ module.exports = {
       special_defense: 0,
       speed: 0,
       hp: 0,
-      image_url: '',
       weight_kg: '',
       height_m: '',
       percentage_male: '',
@@ -30,6 +31,13 @@ module.exports = {
     };
 
     const newPokemon = Object.assign(defaults, input);
+    if (input.icon_url) {
+      newPokemon.icon_url = await imageHandler(input.icon_url);
+    }
+    if (input.image_url) {
+      newPokemon.image_url = await imageHandler(input.image_url);
+    }
+
     let db;
     let pokemon;
     let maxPokemons;
@@ -38,7 +46,7 @@ module.exports = {
       db = await connectDB();
       maxPokemons = await db.collection(COLLECTION).find().count();
       newPokemon.pokemon_number = maxPokemons + 1;
-      // newPokemon.pokemon_number++;
+
       pokemon = await db.collection(COLLECTION).insertOne(newPokemon);
       newPokemon._id = pokemon.insertedId;
     } catch (error) {
@@ -75,5 +83,18 @@ module.exports = {
     }
 
     return `Pokemon with id ${_id} deleted successfully`;
+  },
+  singleUpload: async (root, { file }) => {
+    const { createReadStream, filename, mimetype, encoding } = await file;
+    let urlImage;
+
+    try {
+      urlImage = await image.sendUploadToGCS(createReadStream, filename);
+    } catch (err) {
+      console.error(err);
+    }
+
+    console.log(urlImage);
+    return { filename, mimetype, encoding };
   },
 };

@@ -1,3 +1,5 @@
+scalar Upload
+
 type Card {
   _id: ID!
   pokemon_number: Int!
@@ -27,6 +29,12 @@ type Legend {
   prob_type_legendary: Float
 }
 
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
+
 type Query {
   "Get gards data (page: 1 - ...) (numberOfPages: anyNumber) "
   getCards(page: Int, numberOfPages: Int): [Card]
@@ -45,11 +53,14 @@ type Query {
   getLegendary(type: String, page: Int, numberOfPages: Int): [Card]
   "Get Legendary porcentage"
   getLegendPercentage(type: String): [Legend]
+  "Uploads"
+  uploads: [File]
 }
 
 input CardInput {
   pokemon_number: Int
-  icon_url: String
+  icon_url: Upload
+  image_url: Upload
   english_name: String!
   type: [String]
   abilities: [String]
@@ -61,7 +72,6 @@ input CardInput {
   special_defense: Int
   speed: Int
   hp: Int
-  image_url: String
   weight_kg: String
   height_m: String
   percentage_male: String
@@ -97,4 +107,6 @@ type Mutation {
   updatePokemon(_id: ID!, input: CardEditInput!): Card
   "Delete pokemon"
   deletePokemon(_id: ID!): String
+  "Upload file"
+  singleUpload(file: Upload!): File!
 }

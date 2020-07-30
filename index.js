@@ -5,15 +5,15 @@ const { readFileSync } = require('fs');
 const cors = require('cors');
 const { join } = require('path');
 const config = require('./config/config');
-const resolvers = require('./lib/graphql/resolvers');
-// const { graphqlUploadExpress } = require('graphql-upload');
+const resolvers = require('./graphql/resolvers');
+const { graphqlUploadExpress } = require('graphql-upload');
 
 const app = express();
 const port = config.port;
 const isDev = config.node_dev;
 
 const typeDefs = readFileSync(
-  join(__dirname, 'lib/graphql', 'schema.graphql'),
+  join(__dirname, 'graphql', 'schema.graphql'),
   'utf-8'
 );
 
@@ -23,7 +23,7 @@ app.use(cors());
 
 app.use(
   '/',
-  // graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
+  graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   graphqlHTTP({
     schema: schema,
     rootValue: resolvers,

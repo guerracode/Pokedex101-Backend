@@ -1,6 +1,6 @@
-# Pokedex 101 API Documentation
+# Pokedex 101 API Doc
 
-# **GraphQL API**
+# **GraphQL API Documentation**
 
 ---
 
@@ -20,7 +20,7 @@ https://pokedex-101.herokuapp.com/api
 - Fields:
 
 ```graphql
-getCards(page: Int, numberOfPages: Int): [Card]
+getCards(page: Int, numberOfPages: Int): [Card]Ï
 ```
 
 - Schema **Card:**
@@ -513,6 +513,159 @@ type Legend {
         "prob_type_legendary": 1.498
       }
     ]
+  }
+}
+```
+
+# Create Pokemon
+
+Create new Pokémon.
+
+- Fields:
+
+```graphql
+createPokemon(input: CardInput!): Card
+
+# CardInput
+pokemon_number: Int
+icon_url: Upload
+english_name: String!
+type: [String]
+abilities: [String]
+experience: Int
+generation: String
+attack: Int
+special_attack: Int
+defense: Int
+special_defense: Int
+speed: Int
+hp: Int
+image_url: Upload
+weight_kg: String
+height_m: String
+percentage_male: String
+percentage_female: String
+group_by_force: Int
+```
+
+- Example **Query**:
+
+```graphql
+mutation CreatePokemon($icon: Upload, $image: Upload) {
+  createPokemon(
+    input: {
+      english_name: "NewPokemon"
+      icon_url: $icon
+      image_url: $image
+      type: ["fire", "super"]
+    }
+  ) {
+    pokemon_number
+    english_name
+    icon_url
+    image_url
+    type
+  }
+}
+```
+
+- Example **Response**:
+
+```graphql
+{
+  "data": {
+    "createPokemon": {
+      "_id": "5f1f7a49397ad4113bb485a8",
+      "english_name": "SuperPokemon",
+      "pokemon_number": 900
+    }
+  }
+}
+```
+
+# Update Pokemon
+
+Edit the field of any pokemon
+
+- Fields
+
+```graphql
+editPokemon(_id: ID!input: CardEditInput!): Card
+
+# CardInput:
+icon_url: String
+english_name: String
+type: [String]
+abilities: [String]
+experience: Int
+generation: String
+attack: Int
+special_attack: Int
+defense: Int
+special_defense: Int
+speed: Int
+hp: Int
+image_url: String
+weight_kg: String
+height_m: String
+percentage_male: String
+percentage_female: String
+group_by_force: Int
+```
+
+- Example Query:
+
+```graphql
+mutation {
+  updatePokemon(
+    _id: "5f1fa8f974158732e74e68d7"
+    input: { english_name: "TestPokemon" }
+  ) {
+    _id
+    english_name
+    pokemon_number
+  }
+}
+```
+
+- Example Response
+
+```graphql
+{
+  "data": {
+    "editPokemon": {
+      "_id": "5f1fa8f974158732e74e68d7",
+      "english_name": "TestPokemon",
+      "pokemon_number": 894
+    }
+  }
+}
+```
+
+# Delete Pokemon
+
+Delete all information of a Pokémon:
+
+- Fields:
+
+```graphql
+deletePokemon(_id: ID!): String
+```
+
+- Example Query:
+
+```graphql
+mutation {
+  deletePokemon(_id: "5f1fa8f974158732e74e68d7")
+}
+```
+
+- Example Response:
+
+```graphql
+{
+  "data": {
+    "deletePokemon": "Pokemon with id 5f1fa8f974158732e74e68d7 deleted successfully"
   }
 }
 ```
