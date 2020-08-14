@@ -1,6 +1,7 @@
 const image = require('../lib/storage/images');
 const errorHandler = require('./errorHandler');
 
+// Manage an image upload into Google Cloud Storage.
 module.exports = async file => {
   let urlImage;
 

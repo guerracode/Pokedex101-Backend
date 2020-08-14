@@ -2,13 +2,12 @@
 
 # **GraphQL API Documentation**
 
----
-
 ### **API Endpoint**:
 
-API:   
-https://pokedexapi.guerracode.com   
-Documentation:    
+https://pokedexapi.guerracode.com
+
+### **API Documentation**:
+
 https://pokedexapi.guerracode.com/api-docs
 
 ---
@@ -520,6 +519,8 @@ type Legend {
 }
 ```
 
+---
+
 # Create Pokemon
 
 Create new Pokémon.
@@ -557,10 +558,16 @@ group_by_force: Int
 mutation CreatePokemon($icon: Upload, $image: Upload) {
   createPokemon(
     input: {
-      english_name: "NewPokemon"
+      english_name: "Goku2"
       icon_url: $icon
       image_url: $image
-      type: ["fire", "super"]
+      type: ["ki", "force"]
+      abilities: ["Flye", "Fight"]
+      weight_kg: "654"
+      height_m: "56"
+      percentage_male: "25%"
+      percentage_female: "15%"
+      generation: "5"
     }
   ) {
     pokemon_number
@@ -568,27 +575,69 @@ mutation CreatePokemon($icon: Upload, $image: Upload) {
     icon_url
     image_url
     type
+    abilities
+    experience
+    generation
+    attack
+    special_attack
+    defense
+    special_defense
+    speed
+    hp
+    weight_kg
+    height_m
+    percentage_male
+    percentage_female
+    group_by_force
   }
+}
+```
+
+- Example Variables:
+
+```jsx
+{
+	"icon": Goku.png
+	"image": Goku2.png
 }
 ```
 
 - Example **Response**:
 
 ```graphql
-{
-  "data": {
+"data": {
     "createPokemon": {
-      "pokemon_number": 895,
-      "english_name": "Poncho",
-      "icon_url": "https://storage.cloud.google.com/pokedex-images/iconshark.png",
-      "image_url": "https://storage.cloud.google.com/pokedex-images/frame.png",
+      "pokemon_number": 912,
+      "english_name": "Goku2",
+      "icon_url": "https://storage.googleapis.com/pokedex-images/Goku_FnF.png",
+      "image_url": "https://storage.googleapis.com/pokedex-images/Goku_Render.png",
       "type": [
-        "rock"
-      ]
+        "ki",
+        "force"
+      ],
+      "abilities": [
+        "Flye",
+        "Fight"
+      ],
+      "experience": 1024000,
+      "generation": "5",
+      "attack": 104,
+      "special_attack": 160,
+      "defense": 46,
+      "special_defense": 158,
+      "speed": 93,
+      "hp": 242,
+      "weight_kg": "654",
+      "height_m": "56",
+      "percentage_male": "25%",
+      "percentage_female": "15%",
+      "group_by_force": 1
     }
   }
 }
 ```
+
+---
 
 # Update Pokemon
 
@@ -659,6 +708,8 @@ mutation updatePokemon($image: Upload) {
   }
 }
 ```
+
+---
 
 # Delete Pokemon
 

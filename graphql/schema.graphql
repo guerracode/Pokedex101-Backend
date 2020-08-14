@@ -58,25 +58,25 @@ type Query {
 }
 
 input CardInput {
-  pokemon_number: Int
+  # pokemon_number: Int
   icon_url: Upload
   image_url: Upload
   english_name: String!
   type: [String]
   abilities: [String]
-  experience: Int
+  # experience: Int
   generation: String
-  attack: Int
-  special_attack: Int
-  defense: Int
-  special_defense: Int
-  speed: Int
-  hp: Int
+  # attack: Int
+  # special_attack: Int
+  # defense: Int
+  # special_defense: Int
+  # speed: Int
+  # hp: Int
   weight_kg: String
   height_m: String
   percentage_male: String
   percentage_female: String
-  group_by_force: Int
+  # group_by_force: Int
 }
 
 input CardEditInput {
@@ -84,20 +84,20 @@ input CardEditInput {
   english_name: String
   type: [String]
   abilities: [String]
-  experience: Int
+  # experience: Int
   generation: String
-  attack: Int
-  special_attack: Int
-  defense: Int
-  special_defense: Int
-  speed: Int
-  hp: Int
+  # attack: Int
+  # special_attack: Int
+  # defense: Int
+  # special_defense: Int
+  # speed: Int
+  # hp: Int
   image_url: Upload
   weight_kg: String
   height_m: String
   percentage_male: String
   percentage_female: String
-  group_by_force: Int
+  # group_by_force: Int
 }
 
 type Mutation {
